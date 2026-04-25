@@ -1,0 +1,23 @@
+import requests
+
+api_key = "9ea89b90d4c93e52cfd8fe881288cf2f"
+city = input('Enter a city/state name: ')
+url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+
+request_url = f"{url}?appid={api_key}&q={city}"
+response = requests.get(request_url)
+data = response.json()
+
+print("Full Response:", data)  # 👈 Check this first
+
+if response.status_code==200:
+    
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = round(data['main']['temp']- 273.15,2 ) # for celsius
+    
+    print('Weather: ', weather)
+    print('Temperature: ', temperature)
+else:
+    print("An error occured... ")    
+    
